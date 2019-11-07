@@ -99,7 +99,6 @@
             this.startLoadingData();
 
             if (isEmpty(this.subBreed)) {
-                console.log('get breeds');
                 await this.getBreads()
             }
 

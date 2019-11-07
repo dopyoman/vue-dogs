@@ -32,12 +32,13 @@
             </div>
             <div v-else>None :(</div>
         </v-card-text>
-        
+
     </v-card>
 </template>
 
 <script>
     import {mapActions, mapMutations, mapState} from 'vuex';
+    import {isEmpty} from 'lodash';
     import {colorMap} from "../utils/ColorMapper";
 
     export default {
@@ -51,6 +52,7 @@
         },
         methods: {
             ...mapActions([
+                'getBreads',
                 'getDogImages',
                 'getSubBreedImages'
             ]),
@@ -70,9 +72,9 @@
             },
             getRandomImage() {
                 const numberOfImages = this.dogImages[this.breedKey].length;
-                const randomIndex = Math.floor(Math.random()*numberOfImages);
+                const randomIndex = Math.floor(Math.random() * numberOfImages);
                 const newFetchedImage = this.dogImages[this.breedKey][randomIndex];
-                if(this.dogImage === newFetchedImage) {
+                if (this.dogImage === newFetchedImage) {
                     this.getRandomImage()
                 }
                 this.dogImage = newFetchedImage;
@@ -93,15 +95,20 @@
                 return this.subBreed ? this.subBreed : this.breed;
             }
         },
-        created() {
+        async created() {
             this.startLoadingData();
-            this.getDogImages(this.breed).then(() => {
-                this.stopLoadingData();
-                if (!this.dogImages[this.breed]) {
-                    this.$route('/');
-                }
-                this.dogImage = this.dogImages[this.breed][0];
-            })
+
+            if (isEmpty(this.subBreed)) {
+                console.log('get breeds');
+                await this.getBreads()
+            }
+
+            await this.getDogImages(this.breed);
+
+            this.dogImage = this.dogImages[this.breed][0];
+
+            this.stopLoadingData()
+
         }
     }
 </script>
@@ -110,11 +117,13 @@
     .chip {
         margin: 2px;
     }
+
     .breed-detail-title {
         text-transform: capitalize;
     }
-    .load-new-image-button{
-        top: 20px;
+
+    .load-new-image-button {
+        top: 20px !important;
     }
 
 </style>

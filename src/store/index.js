@@ -25,6 +25,7 @@ export default new Vuex.Store({
             state.breedFetched = true;
         },
         setDogImages(state, {dogImages, breed}) {
+            console.log(state.dogImages)
             state.dogImages[breed] = dogImages;
         }
     },

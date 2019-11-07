@@ -12,6 +12,8 @@
                    top
                    right
                    absolute
+                   class="load-new-image-button"
+                   v-on:click="getRandomImage"
             >
                 <v-icon>mdi-autorenew</v-icon>
             </v-btn>
@@ -30,18 +32,7 @@
             </div>
             <div v-else>None :(</div>
         </v-card-text>
-
-        <v-card-actions>
-            <v-btn
-                    color="orange"
-                    text
-                    v-on:click="getRandomImage"
-            >
-                Change Image
-            </v-btn>
-
-        </v-card-actions>
-
+        
     </v-card>
 </template>
 
@@ -80,7 +71,11 @@
             getRandomImage() {
                 const numberOfImages = this.dogImages[this.breedKey].length;
                 const randomIndex = Math.floor(Math.random()*numberOfImages);
-                this.dogImage = this.dogImages[this.breedKey][randomIndex];
+                const newFetchedImage = this.dogImages[this.breedKey][randomIndex];
+                if(this.dogImage === newFetchedImage) {
+                    this.getRandomImage()
+                }
+                this.dogImage = newFetchedImage;
             }
         },
         computed: {
@@ -117,6 +112,9 @@
     }
     .breed-detail-title {
         text-transform: capitalize;
+    }
+    .load-new-image-button{
+        top: 20px;
     }
 
 </style>

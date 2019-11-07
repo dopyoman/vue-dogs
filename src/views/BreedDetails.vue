@@ -13,7 +13,7 @@
                    right
                    absolute
             >
-                <v-icon>mdi-circle-arrows</v-icon>
+                <v-icon>mdi-autorenew</v-icon>
             </v-btn>
             <v-card-title class="breed-detail-title">{{title}}</v-card-title>
 
@@ -48,7 +48,6 @@
 <script>
     import {mapActions, mapMutations, mapState} from 'vuex';
     import {colorMap} from "../utils/ColorMapper";
-    import { mdiAutorenew } from '@mdi/js';
 
     export default {
         name: "BreedDetails",

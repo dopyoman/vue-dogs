@@ -12,7 +12,7 @@
     "@mdi/font": "^3.6.95",
     "core-js": "^3.3.2",
     "ky": "^0.15.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "roboto-fontface": "*",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3",
